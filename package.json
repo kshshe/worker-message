@@ -1,6 +1,6 @@
 {
   "name": "worker-message",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Tool for posting/getting messages to/from webworkers with types",
   "main": "src/index.js",
   "scripts": {
