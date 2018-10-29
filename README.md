@@ -14,6 +14,12 @@ or
 <script src="/.../.../client.worker-message.min.js"></script>
 ```
 
+or
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/worker-message/lib/client.worker-message.min.js"></script>
+```
+
 # Usage
 
 Main side:
@@ -39,7 +45,11 @@ Worker side:
 
 ```js
 importScripts(
-  "node_modules/worker-message/lib/lib/worker.worker-message.min.js"
+  "node_modules/worker-message/lib/worker.worker-message.min.js"
+);
+// or 
+importScripts(
+  "https://cdn.jsdelivr.net/npm/worker-message/lib/worker.worker-message.min.js"
 );
 
 self.on("some_event_to_worker", data => {
