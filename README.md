@@ -2,6 +2,8 @@
 
 Tool for posting/getting messages to/from webworkers with types.
 
+[![NPM](https://nodei.co/npm/worker-message.png?downloads=true&downloadRank=true&stars=true)](https://nodei.co/npm/worker-message/)
+
 # Installing
 
 ```shell
