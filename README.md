@@ -8,6 +8,12 @@ Tool for posting/getting messages to/from webworkers with types.
 npm i worker-message
 ```
 
+or
+
+```html
+<script src="/.../.../client.worker-message.min.js"></script>
+```
+
 # Usage
 
 Main side:
@@ -32,5 +38,13 @@ WSub.emit("some_event_to_worker", data);
 Worker side:
 
 ```js
-importScripts("node_modules/worker-message/worker-side.js");
+importScripts(
+  "node_modules/worker-message/lib/lib/worker.worker-message.min.js"
+);
+
+self.on("some_event_to_worker", data => {
+  console.log(data);
+
+  self.emit("some_event", data);
+});
 ```

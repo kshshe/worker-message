@@ -1,14 +1,10 @@
-import WorkerSub from "worker-message";
-
 const worker = new Worker("worker.js");
 const WSub = new WorkerSub(worker);
 
 WSub.on("some_event", data => {
+  console.log("Worker sent a message");
   console.log(data);
 });
 
-WSub.on("some_other_event", data => {
-  console.log(data);
-});
-
-WSub.emit("some_event_to_worker", data);
+console.log("Sending a message to the worker");
+WSub.emit("some_event_to_worker", { some_key: "some_value" });

@@ -8,7 +8,8 @@ class WorkerSub {
     this.subscriptions = new Map();
   }
 
-  messageRecievedHandler(message) {
+  messageRecievedHandler(e) {
+    const message = e.data;
     const type = this.subscriptions.has(message.type)
       ? message.type
       : this.defaultType;
