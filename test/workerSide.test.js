@@ -1,7 +1,9 @@
 const getEventObject = require("../src/getEventObject").default;
 const { init, subscriptions } = require("../src/workerSide").default;
 
-let self = {
+console.warn = jest.fn();
+
+let selfLikeObject = {
   postMessage: jest.fn(),
   onmessage: null,
   on: undefined,
@@ -16,22 +18,22 @@ const events = {
 };
 
 test("Initializing callbacks and functions", () => {
-  init(self);
-  expect(self.onmessage).not.toEqual(null);
-  expect(self.on).toBeDefined();
-  expect(self.emit).toBeDefined();
+  init(selfLikeObject);
+  expect(selfLikeObject.onmessage).not.toEqual(null);
+  expect(selfLikeObject.on).toBeDefined();
+  expect(selfLikeObject.emit).toBeDefined();
 });
 
 test("Adding subscription when calling 'on'", () => {
   Object.keys(events).map(event => {
-    self.on(event, events[event]);
+    selfLikeObject.on(event, events[event]);
   });
-  expect(subscriptions.size).toEqual(2);
+  expect(subscriptions.size).toEqual(Object.keys(events).length);
 });
 
 test("Calling callbacks when recieved an event", () => {
   Object.keys(events).map(event => {
-    self.onmessage({
+    selfLikeObject.onmessage({
       data: getEventObject(event, messageData)
     });
     expect(events[event]).toBeCalledWith(messageData);
@@ -40,7 +42,25 @@ test("Calling callbacks when recieved an event", () => {
 
 test("Calling postMessage when calling emit", () => {
   Object.keys(events).map(event => {
-    self.emit(event, messageData);
-    expect(self.postMessage).toBeCalledWith(getEventObject(event, messageData));
+    selfLikeObject.emit(event, messageData);
+    expect(selfLikeObject.postMessage).toBeCalledWith(
+      getEventObject(event, messageData)
+    );
   });
+});
+
+test("Outputing warning when gets unhandled event", () => {
+  selfLikeObject.onmessage({
+    data: getEventObject("WeDontHandleThisType", messageData)
+  });
+  expect(console.warn).toHaveBeenCalled();
+});
+
+test("Calling callback for default name when worker sends an unhandled event", () => {
+  const handle = jest.fn();
+  selfLikeObject.on("_", handle);
+  selfLikeObject.onmessage({
+    data: getEventObject("WeDontHandleThisType", messageData)
+  });
+  expect(handle).toBeCalledWith(messageData);
 });

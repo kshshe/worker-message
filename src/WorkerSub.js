@@ -15,6 +15,8 @@ class WorkerSub {
       : this.defaultType;
     if (this.subscriptions.has(type)) {
       this.subscriptions.get(type)(message.data);
+    } else {
+      console.warn("Unhandled event", type, message.data);
     }
   }
 

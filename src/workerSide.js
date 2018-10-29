@@ -17,6 +17,8 @@ function init(globalObject) {
     const type = subscriptions.has(e.data.type) ? e.data.type : defaultType;
     if (subscriptions.has(type)) {
       subscriptions.get(type)(e.data.data);
+    } else {
+      console.warn("Unhandled event", type, e.data.data);
     }
   };
 }
