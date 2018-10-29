@@ -5,8 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "test:watch": "jest --watch",
-    "prepare": "babel ./src/*.js --retain-lines -d ./dist"
+    "test:watch": "jest --watch"
   },
   "keywords": [
     "webworkers"
@@ -16,6 +15,12 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "jest-puppeteer": "^3.4.0",
+    "puppeteer": "^1.9.0",
+    "serve-static": "^1.13.2"
+  },
+  "jest": {
+    "preset": "jest-puppeteer"
   }
 }

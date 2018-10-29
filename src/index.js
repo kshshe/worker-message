@@ -1,5 +1,3 @@
-import on from "./on";
+import WorkerSub from "./WorkerSub";
 
-export default {
-  on
-};
+export default WorkerSub;
